@@ -1,0 +1,18 @@
+'use strict';
+(()=>{
+const VERSION=24, DATE='2026-11-23';
+let deferred=null, reg=null, latest=null, installed=false, busy=false;
+const standalone=()=>installed||matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const ios=()=>/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const base=new URL('./',location.href);
+const status=t=>{let el=document.getElementById('yw-pwa-status');if(el)el.textContent=t};
+function paint(){let b=document.getElementById('yw-install');if(b){b.hidden=standalone();b.textContent=deferred?'모바일 앱 설치':'모바일 앱 설치 안내'}let u=document.getElementById('yw-update');if(u){u.textContent=latest>VERSION?'최신 버전 업데이트':'업데이트 확인';u.disabled=busy}}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;paint();status('이 기기에 YES WORD를 설치할 수 있습니다.')});
+window.addEventListener('appinstalled',()=>{installed=true;deferred=null;paint();status('앱 설치가 완료되었습니다.')});
+async function install(){if(standalone())return status('이미 앱으로 실행 중입니다.');if(deferred){let e=deferred;try{await e.prompt();let choice=await e.userChoice;status(choice.outcome==='accepted'?'설치 요청이 완료되었습니다.':'설치가 취소되었습니다.')}catch{status('설치 메뉴를 다시 이용해 주세요.')}finally{deferred=null;paint()}return}status(ios()?'Safari에서 공유 버튼 → 홈 화면에 추가를 선택하세요.':'Chrome에서 ⋮ → 앱 설치를 선택하세요. 설치가 비활성화되면 일반 Chrome에서 다시 열고 잠시 후 확인하세요. 카카오톡 등 앱 내 브라우저에서는 외부 브라우저로 열어주세요.')}
+async function check(manual=false){if(busy)return;if(!navigator.onLine){if(manual)status('오프라인 상태입니다. 연결 후 확인하세요.');return}busy=true;paint();if(manual)status('최신 버전 확인 중…');try{let u=new URL('sw.js',base);u.searchParams.set('check',Date.now());let r=await fetch(u,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);let m=(await r.text()).match(/const CACHE=['"]yes-word-v(\d+)['"]/);if(!m)throw Error('버전 확인 실패');latest=Number(m[1]);if(latest>VERSION){status('새 버전 v0.'+latest+'이 있습니다.');if(manual&&confirm('현재 학습 또는 녹음을 마친 후 업데이트해 주세요. 지금 앱을 다시 열까요?')){if(reg)await reg.update();let n=new URL(location.href);n.searchParams.set('v',String(latest));location.replace(n.href);return}}else if(manual)status('현재 최신 버전입니다. v0.'+VERSION);else if(!deferred&&standalone())status('설치된 앱 · 최신 버전')}catch(e){if(manual)status('업데이트를 확인하지 못했습니다. 다시 시도해 주세요.')}finally{busy=false;paint()}}
+function mount(){let target=document.querySelector('.account-wrap')||document.getElementById('app');if(!target)return;let section=document.createElement('section');section.id='yw-pwa-panel';section.className='card stack';section.style.cssText='max-width:560px;margin:16px auto;padding:18px;text-align:center;';section.innerHTML='<small>YES WORD · v0.'+VERSION+' · 마지막 업데이트 '+DATE+'</small><button type="button" class="outline full" id="yw-install">모바일 앱 설치 안내</button><button type="button" class="outline full" id="yw-update">업데이트 확인</button><p class="muted" id="yw-pwa-status" role="status" style="font-size:13px;line-height:1.6"></p>';if(target.id==='app')target.after(section);else target.append(section);document.getElementById('yw-install').onclick=install;document.getElementById('yw-update').onclick=()=>check(true);paint();check()}
+if('serviceWorker'in navigator)navigator.serviceWorker.register(new URL('sw.js',base),{updateViaCache:'none'}).then(r=>{reg=r}).catch(()=>status('설치 준비에 실패했습니다. 인터넷 연결 후 다시 시도해 주세요.'));
+window.addEventListener('focus',()=>check());window.addEventListener('online',()=>check());document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')check()});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
