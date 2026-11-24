@@ -13,14 +13,16 @@ if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch
 const cached=read(markerKey),session=read(authKey);
 const offline=cached?.id&&session?.user?.id===cached.id&&cached.profile?.name?cached:null;
 window.addEventListener('storage',e=>{if(e.key===authKey&&launched&&read(authKey)?.user?.id!==window.YES_IDENTITY.id){location.reload()}});
-if(localStorage.getItem(guestKey)==='1'&&!session?.user){launch(guest,null);return}
+if(localStorage.getItem(guestKey)==='1'&&(!session?.user||new URLSearchParams(location.search).get('guest')==='1')){history.replaceState(null,'',location.pathname);launch(guest,null);return}
 if(!navigator.onLine){screen('오프라인 상태입니다. 이전에 로그인한 이 기기에서만 학습할 수 있습니다. 공용 기기에서는 사용하지 마세요.',offline);return}
 try{
  await new Promise((resolve,reject)=>{let s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js';s.onload=resolve;s.onerror=reject;document.head.append(s)});
  const client=window.supabase.createClient('https://nheaxjxixixhmhxinqlt.supabase.co','sb_publishable_ORcSnStmZXAuyRxrqtLOTA_ZjJz7naH',{auth:{storageKey:authKey,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
  const {data,error}=await client.auth.getUser();
+ if(launched)return;
  if(error||!data.user){if(!error||error.status===401||error.status===403||error.name==='AuthSessionMissingError'){localStorage.removeItem(markerKey);location.replace('./account.html?v=17');return}throw error}
  const user=data.user,r=await client.from('profiles').select('display_name,affiliation').eq('id',user.id).maybeSingle();
+ if(launched)return;
  if(r.error)throw r.error;
  if(!r.data){location.replace('./account.html?v=17');return}
  localStorage.removeItem(guestKey);
