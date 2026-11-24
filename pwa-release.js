@@ -1,6 +1,6 @@
 'use strict';
 (()=>{
-const VERSION=24, DATE='2026-11-23';
+const VERSION=25, DATE='2026-11-23';
 let deferred=null, reg=null, latest=null, installed=false, busy=false;
 const standalone=()=>installed||matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 const ios=()=>/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
