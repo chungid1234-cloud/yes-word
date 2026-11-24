@@ -1,4 +1,4 @@
-# YES WORD v0.1
+# YES WORD v0.3
 한국어 말씀 암송용 모바일 PWA. 독립적인 개인 학습 프로토타입이며 교회의 공식 서비스가 아닙니다.
 
 ## GitHub Pages 배포
@@ -24,3 +24,9 @@
 - 브라우저 데이터 삭제 시 로컬 학습 기록이 삭제될 수 있습니다. JSON 백업과 녹음 다운로드를 사용하세요.
 - 공개 배포 전 교회 명칭 사용 허가 및 본문 이용 권한을 확인하세요. 개인 입력 본문은 배포 코드에 포함하지 않습니다.
 - JavaScript 구문 검사 완료. 테스트 환경의 브라우저 탐색 제한으로 전체 브라우저 통합 테스트는 미완료입니다.
+
+
+## v0.3
+- Local first-run profile onboarding (name and affiliation), personalized home, editable profile.
+- Existing local storage keys preserved; profile is not an authenticated account.
+- Next backend milestone: configure Supabase Auth, owner-only data policies, and explicitly confirmed migration of existing local data.
