@@ -8,3 +8,5 @@
 
 /* Learning history and account layout */
 .history-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:16px 0}.history-filters button{padding:8px 4px}.history-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.history-row:last-child{border-bottom:0}.history-row small{display:block}.history-score{white-space:nowrap;color:var(--primary);font-size:13px}.history-list>button{margin-top:12px}.history-chart{height:110px;display:flex;align-items:end;gap:4px;margin:16px 0}.history-chart>div{height:100%;flex:1;display:flex;align-items:end}.history-chart i{display:block;width:100%;background:var(--primary);border-radius:4px 4px 0 0}.account-overview{margin-bottom:10px}.welcome-card>a{display:block;margin:12px 0;color:var(--primary)}
+
+.official-content-row{border-top:1px solid var(--line);padding:12px 0}.official-content-row summary{cursor:pointer;line-height:1.7}.official-content-row summary small{display:block;margin-left:16px}.official-content-row[open] summary{margin-bottom:12px}
