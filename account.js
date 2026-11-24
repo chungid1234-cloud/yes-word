@@ -1,6 +1,6 @@
 'use strict';
 (() => {
-const URL_BASE='https://nheaxjxixihmhxinqlt.supabase.co';
+const URL_BASE='https://nheaxjxixixhmhxinqlt.supabase.co';
 const PUBLIC_KEY='sb_publishable_ORcSnStmZXAuyRxrqtLOTA_ZjJz7naH';
 const SITE='https://chungid1234-cloud.github.io/yes-word/';
 let clientPromise;
