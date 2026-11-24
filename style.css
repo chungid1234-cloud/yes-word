@@ -13,3 +13,9 @@
 
 /* v0.29: mobile scripture reading typography and in-place audio */
 .scripture-reading{padding:clamp(18px,5vw,28px);border-radius:20px}.scripture-toolbar{gap:12px;margin-bottom:18px}.scripture-toolbar small{font-weight:600;letter-spacing:-.015em}.scripture-toolbar button{font-size:13px;font-weight:650;white-space:nowrap;color:var(--primary);padding:8px 13px}.scripture-reading .scripture-text{font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;font-size:clamp(18px,4.8vw,22px);font-weight:400;line-height:1.85;letter-spacing:-.025em;word-break:keep-all;overflow-wrap:break-word;margin:0 0 18px;white-space:pre-wrap}.scripture-reading audio{display:block;width:100%;margin-top:10px}.scripture-reading audio[hidden]{display:none}.scripture-reading #verse-audio-status{margin:8px 0 0;font-size:12px}.scripture-reading #verse-audio-status:empty{display:none}
+
+/* v0.30 user-controlled scripture reading size; applies to reading and practice */
+html[data-verse-size=small] .verse,html[data-verse-size=small] .flip .verse,html[data-verse-size=small] .scripture-reading .scripture-text{font-size:clamp(16px,4.2vw,19px)}
+html[data-verse-size=medium] .verse,html[data-verse-size=medium] .flip .verse,html[data-verse-size=medium] .scripture-reading .scripture-text{font-size:clamp(18px,4.8vw,23px)}
+html[data-verse-size=large] .verse,html[data-verse-size=large] .flip .verse,html[data-verse-size=large] .scripture-reading .scripture-text{font-size:clamp(22px,5.8vw,29px)}
+html[lang=en] .home-greeting h1{letter-spacing:-.025em}html[lang=en] nav small{font-size:10px}
