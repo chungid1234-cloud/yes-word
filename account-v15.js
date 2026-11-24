@@ -10,6 +10,7 @@ const form=document.getElementById('account-form'),status=document.getElementByI
 let currentUser=null,mode='login';
 const say=t=>status.textContent=t;
 const googlePanel=document.getElementById('google-panel'),googleButton=document.getElementById('google-login'),profileForm=document.getElementById('oauth-profile');
+document.getElementById('guest-start').onclick=()=>{try{localStorage.setItem('yes-word-guest-active','1');location.replace('./?guest=1')}catch(e){say('브라우저 저장 공간을 사용할 수 없습니다.')}};
 googleButton.onclick=async()=>{googleButton.disabled=true;try{let c=await client();let r=await c.auth.signInWithOAuth({provider:'google',options:{redirectTo:CALLBACK,queryParams:{prompt:'select_account'}}});if(r.error)throw r.error}catch(e){say(e.message||'Google 로그인에 실패했습니다.');googleButton.disabled=false}};
 profileForm.onsubmit=async e=>{e.preventDefault();let b=profileForm.querySelector('button');b.disabled=true;try{let c=await client(),u=await c.auth.getUser();if(u.error||!u.data.user)throw Error('다시 로그인해 주세요.');let n=document.getElementById('oauth-name').value.trim(),a=document.getElementById('oauth-affiliation').value;if(!n||n.length>40)throw Error('이름을 1~40자로 입력하세요.');let r=await c.from('profiles').insert({id:u.data.user.id,display_name:n,affiliation:a});if(r.error&&r.error.code!=='23505')throw r.error;location.replace('./')}catch(e){say(e.message)}finally{b.disabled=false}};
 
