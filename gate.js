@@ -5,7 +5,7 @@ document.body.classList.add('welcome-mode');
 let launched=false;
 function screen(message,offline){root.replaceChildren();let box=document.createElement('section');box.className='welcome-card';let h=document.createElement('h2');h.textContent='YES WORD';let p=document.createElement('p');p.textContent=message;box.append(h,p);let a=document.createElement('a');a.href='./account.html?v=10';a.textContent='로그인 / 회원가입';box.append(a);if(offline){let b=document.createElement('button');b.className='primary full';b.textContent='이 기기에서 오프라인 암송';b.onclick=()=>launch(offline,null);box.append(b)}root.append(box)}
 function read(k){try{return JSON.parse(localStorage.getItem(k))}catch{return null}}
-function launch(identity,client){if(launched)return;launched=true;window.YES_IDENTITY=Object.freeze(identity);window.YES_CLIENT=client;document.body.classList.remove('welcome-mode');let script=document.createElement('script');script.src='./app.js?v=10';script.onerror=()=>{launched=false;document.body.classList.add('welcome-mode');screen('앱을 불러오지 못했습니다. 다시 접속해 주세요.')};document.head.append(script)}
+function launch(identity,client){if(launched)return;launched=true;window.YES_IDENTITY=Object.freeze(identity);window.YES_CLIENT=client;document.body.classList.remove('welcome-mode');let script=document.createElement('script');script.src='./app.js?v=11';script.onerror=()=>{launched=false;document.body.classList.add('welcome-mode');screen('앱을 불러오지 못했습니다. 다시 접속해 주세요.')};document.head.append(script)}
 screen('계정을 확인하고 있습니다.');
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 const cached=read(markerKey),session=read(authKey);
