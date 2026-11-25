@@ -19,3 +19,6 @@ html[data-verse-size=small] .verse,html[data-verse-size=small] .flip .verse,html
 html[data-verse-size=medium] .verse,html[data-verse-size=medium] .flip .verse,html[data-verse-size=medium] .scripture-reading .scripture-text{font-size:clamp(18px,4.8vw,23px)}
 html[data-verse-size=large] .verse,html[data-verse-size=large] .flip .verse,html[data-verse-size=large] .scripture-reading .scripture-text{font-size:clamp(22px,5.8vw,29px)}
 html[lang=en] .home-greeting h1{letter-spacing:-.025em}html[lang=en] nav small{font-size:10px}
+
+/* v33 administrator audio status */
+.yw-audio-overview,.yw-audio-existing{display:grid;gap:9px;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0}.yw-audio-overview h4{margin:0}.yw-audio-overview progress{width:100%;height:9px;accent-color:#41805c}.yw-audio-status-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}.yw-audio-badge{display:inline-block;border-radius:6px;padding:3px 8px;font-size:12px;font-weight:650;line-height:1.5}.yw-audio-live{background:#e0f2e5;color:#205e39}.yw-audio-draft{background:#fff1d5;color:#815207}.yw-audio-missing{background:#e8e9eb;color:#4b5563}.yw-audio-file{display:grid;gap:8px;padding:10px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}.yw-audio-file .row{flex-wrap:wrap}.yw-audio-file b{min-width:0}.yw-audio-existing small{display:block}
